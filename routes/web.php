@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\mtg\CardSearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/{page?}', function ($page) {
+    $cardController = new CardSearchController();
+    $cards = $cardController->getCards($page);
 
-Route::get('/', function () {
-    return view('home');
-});
+    return view('home', ['cards' => $cards]);
+})->name('cards');
