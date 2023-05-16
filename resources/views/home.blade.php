@@ -15,10 +15,11 @@
         @endforeach
     </div>
 
-    <div class="pagination">
+    <div class="pagination flex flex-wrap justify-center mt-8">
         @for ($index = 1; $index <= 100; $index++)
             <a href="{{ route('cards', ['page' => $index]) }}"
-                class="{{ $index == 1 ? 'active' : '' }}">{{ $index }}</a>
+                class="px-4 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300 {{ $index == 1 ? 'bg-blue-500 text-white' : '' }}">{{ $index }}</a>
         @endfor
     </div>
+
 @endsection
