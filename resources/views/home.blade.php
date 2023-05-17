@@ -18,6 +18,14 @@
         $page = isset($page) && $page != '' ? $page : 1;
     @endphp
 
+    <form class="flex flex-wrap justify-center bg-black-300 w-full mt-3 mb-3" action="{{ route('cards') }}" method="GET">
+        <input name='name' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded" type="text"
+            placeholder="name">
+        <button
+            class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-green-400 hover:scale-105"
+            type="submit">Search</button>
+    </form>
+
     <div class="flex flex-wrap justify-evenly bg-black-300 w-full" id="card-container">
         @foreach ($cards as $card)
             @if (isset($card->imageUrl))
