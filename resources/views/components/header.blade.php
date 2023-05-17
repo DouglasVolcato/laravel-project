@@ -7,5 +7,5 @@
     </div>
 </div>
 
-@component('components.navbar')
-@endcomponent
+{{-- @component('components.navbar')
+@endcomponent --}}

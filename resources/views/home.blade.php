@@ -1,8 +1,23 @@
 @extends('components.main')
 
-@section('title', 'Home')
+@section('title', 'Card list')
 
 @section('content')
+    @php
+        $urlParameters = '';
+        $page = '';
+        
+        foreach (request()->query as $key => $value) {
+            if ($key != 'page') {
+                $urlParameters .= "&{$key}={$value}";
+            } else {
+                $page = $value;
+            }
+        }
+        
+        $page = isset($page) && $page != '' ? $page : 1;
+    @endphp
+
     <div class="flex flex-wrap justify-evenly bg-black-300 w-full" id="card-container">
         @foreach ($cards as $card)
             @if (isset($card->imageUrl))
@@ -15,11 +30,20 @@
         @endforeach
     </div>
 
-    <div class="pagination flex flex-wrap justify-center mt-8">
-        @for ($index = 1; $index <= 100; $index++)
-            <a href="{{ route('cards', ['page' => $index]) }}"
-                class="px-4 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300 {{ $index == 1 ? 'bg-blue-500 text-white' : '' }}">{{ $index }}</a>
-        @endfor
-    </div>
+    @if (strlen($urlParameters) == 0)
+        <div class="pagination flex flex-wrap justify-center mt-8">
+            @if ($page > 1)
+                <a href="{{ route('cards', 'page=' . $page - 1 . $urlParameters) }}"
+                    class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                    <img class="w-4 mt-auto mb-auto" src="icons\buttons\arrow-left.png" alt="left-arrow">
+                </a>
+            @endif
+            <a class="px-4 py-2 m-1 font-bold bg-blue-600 text-white">{{ $page }}</a>
+            <a href="{{ route('cards', 'page=' . $page + 1 . $urlParameters) }}"
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                <img class="w-4 mt-auto mb-auto" src="icons\buttons\arrow-right.png" alt="right-arrow">
+            </a>
+        </div>
+    @endif
 
 @endsection
