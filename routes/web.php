@@ -13,9 +13,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/{page?}', function ($page = 1) {
-    $cardController = new CardSearchController();
-    $cards = $cardController->getCards($page);
 
-    return view('home', ['cards' => $cards]);
-})->name('cards');
+Route::get('/', [CardSearchController::class, 'showCardListView'])->name('cards');
