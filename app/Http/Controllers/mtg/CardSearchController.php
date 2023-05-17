@@ -1,13 +1,13 @@
 <?php
 
-namespace app\Http\Controllers\mtg;
+namespace App\Http\Controllers\mtg;
 
+use App\Http\Helpers\MtgApiConnection\MtgApiConnectionHelper;
 use App\Http\Helpers\RequestSender\RequestSenderHelper;
 use App\Http\Requests\CardListSearchParametersRequest;
 use Exception;
-use Illuminate\Routing\Controller as BaseController;
 
-class CardSearchController extends BaseController
+class CardSearchController extends MtgApiConnectionHelper
 {
     private $requestSender;
 
@@ -88,7 +88,7 @@ class CardSearchController extends BaseController
     private function getCards($parameters)
     {
         try {
-            $apiLink = 'https://api.magicthegathering.io/v1/cards' . $parameters;
+            $apiLink = $this->apiLink . $parameters;
             $data = $this->requestSender->get($apiLink);
             $cards = json_decode($data)->cards;
 

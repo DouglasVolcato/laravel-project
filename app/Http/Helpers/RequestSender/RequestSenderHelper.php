@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Helpers\RequestSender;
+namespace App\Http\Helpers\RequestSender;
 
 class RequestSenderHelper {
     public function get($link, $token = null) {
