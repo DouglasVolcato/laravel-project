@@ -10,8 +10,9 @@ class CardCollectionService extends BaseController
 {
     private $fileHandler;
     private $fileName = 'mycollection';
-    public $propertyDivider = '****';
-    public $registerDivider = '////';
+    public $propertySeparator = '****';
+    public $registerSeparator = '////';
+    public $arraySeparator = ',,,,';
 
     public function __construct(FileHandlerHelper $fileHandler)
     {
@@ -27,20 +28,29 @@ class CardCollectionService extends BaseController
     {
         $content =  $this->fileHandler->getContent($this->fileName);
 
-        return $this->cardListToArray($content);
+        if (isset($content) && trim($content) !== '') {
+            return $this->cardListToArray($content);
+        }
+
+        return '';
     }
 
     private function cardListToArray($content)
     {
-        $splitRegisters = explode($this->registerDivider, $content);
+        $splitRegisters = explode($this->registerSeparator, trim($content));
+
+        $splitRegistersVerified = array_filter($splitRegisters, function ($item) {
+            return trim($item) !== "";
+        });
+
         $splitCards = array_map(function ($item) {
-            $registerProperties = explode($this->propertyDivider, $item);
+            $registerProperties = explode($this->propertySeparator, $item);
 
             $data = new stdClass();
-            $data->utility = $registerProperties[0];
+            $data->utility = $this->stringToArray($registerProperties[0]);
             $data->name = $registerProperties[1];
             $data->cmc = $registerProperties[2];
-            $data->colors = $registerProperties[3];
+            $data->colors = $this->stringToArray($registerProperties[3]);
             $data->type = $registerProperties[4];
             $data->rarity = $registerProperties[5];
             $data->power = $registerProperties[6];
@@ -49,17 +59,17 @@ class CardCollectionService extends BaseController
             $data->quantity = $registerProperties[9];
 
             return $data;
-        }, $splitRegisters);
+        }, $splitRegistersVerified);
 
         return $splitCards;
     }
 
     public function cardObjectToString($content)
     {
-        $utility = $content->utility;
+        $utility = $this->stringArrayToString($content->utility);
         $name = $content->name;
         $cmc = $content->cmc;
-        $colors = $content->colors;
+        $colors = $this->stringArrayToString($content->colors);
         $type = $content->type;
         $rarity = $content->rarity;
         $power = $content->power;
@@ -67,8 +77,31 @@ class CardCollectionService extends BaseController
         $imageUrl = $content->imageUrl;
         $quantity = $content->quantity;
 
-        $cardContent = $utility . $this->propertyDivider . $name . $this->propertyDivider . $cmc . $this->propertyDivider . $colors . $this->propertyDivider . $type . $this->propertyDivider . $rarity . $this->propertyDivider . $power . $this->propertyDivider . $toughness . $this->propertyDivider . $imageUrl . $this->propertyDivider . $quantity;
+        $cardContent = $utility . $this->propertySeparator . $name . $this->propertySeparator . $cmc . $this->propertySeparator . $colors . $this->propertySeparator . $type . $this->propertySeparator . $rarity . $this->propertySeparator . $power . $this->propertySeparator . $toughness . $this->propertySeparator . $imageUrl . $this->propertySeparator . $quantity;
 
         return $cardContent;
+    }
+
+    public function cardObjectArrayToString($content)
+    {
+        if(!$content || count($content) === 0){
+            return '';
+        }
+
+        $stringDataArray = array_map(function($item){
+            return $this->cardObjectToString($item);
+        }, $content);
+
+        return implode($this->registerSeparator, $stringDataArray);
+    }
+
+    private function stringArrayToString($content)
+    {
+        return implode($this->arraySeparator, $content);
+    }
+
+    private function stringToArray($content)
+    {
+        return explode($this->arraySeparator, $content);
     }
 }
