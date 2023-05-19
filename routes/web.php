@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\collection\AddCardController;
 use App\Http\Controllers\mtg\CardSearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CardSearchController::class, 'showCardListView'])->name('cards');
+Route::get('/', [CardSearchController::class, 'showCardListView'])->name('cardList');
+
+Route::get('/register-card-form', [AddCardController::class, 'showCardRegistrationView'])->name('cardRegistrationView');
+Route::get('/register-card', [AddCardController::class, 'addCard'])->name('cardRegistration');

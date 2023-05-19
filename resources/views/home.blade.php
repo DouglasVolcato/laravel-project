@@ -18,7 +18,7 @@
         $page = isset($page) && $page != '' ? $page : 1;
     @endphp
 
-    <form class="flex flex-wrap justify-center bg-black-300 w-full mt-3 mb-3" action="{{ route('cards') }}" method="GET">
+    <form class="flex flex-wrap justify-center bg-black-300 w-full mt-3 mb-3" action="{{ route('cardList') }}" method="GET">
         <input name='name' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded" type="text"
             placeholder="name">
         <button
@@ -41,13 +41,13 @@
     @if (strlen($urlParameters) == 0 && count($cards) > 0)
         <div class="pagination flex flex-wrap justify-center mt-8">
             @if ($page > 1)
-                <a href="{{ route('cards', 'page=' . $page - 1 . $urlParameters) }}"
+                <a href="{{ route('cardList', 'page=' . $page - 1 . $urlParameters) }}"
                     class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300 hover:scale-105">
                     <img class="w-4 mt-auto mb-auto" src="icons\buttons\arrow-left.png" alt="left-arrow">
                 </a>
             @endif
             <a class="px-4 py-2 m-1 font-bold bg-blue-600 text-white">{{ $page }}</a>
-            <a href="{{ route('cards', 'page=' . $page + 1 . $urlParameters) }}"
+            <a href="{{ route('cardList', 'page=' . $page + 1 . $urlParameters) }}"
                 class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-gray-300 hover:scale-105">
                 <img class="w-4 mt-auto mb-auto" src="icons\buttons\arrow-right.png" alt="right-arrow">
             </a>
