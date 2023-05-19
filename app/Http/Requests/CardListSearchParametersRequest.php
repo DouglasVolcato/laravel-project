@@ -24,14 +24,6 @@ class CardListSearchParametersRequest extends FormRequest
         return [
             'page' => 'string',
             'name' => 'string',
-            'cmc' => 'number',
-            'colors' => 'string',
-            'types' => 'string',
-            'supertypes' => 'string',
-            'rarity' => 'string',
-            'text' => 'string',
-            'power' => 'number',
-            'toughness' => 'number',
         ];
     }
 }
