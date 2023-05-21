@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddCardRequest extends FormRequest
+class DeleteCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,7 @@ class AddCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string',
-            'utility' => 'array',
-            'cmc' => 'numeric',
-            'colors' => 'array',
-            'type' => 'string',
-            'rarity' => 'string',
-            'power' => 'numeric',
-            'toughness' => 'numeric',
-            'imageUrl' => 'string',
-            'quantity' => 'numeric',
+            'id' => 'string'
         ];
     }
 }

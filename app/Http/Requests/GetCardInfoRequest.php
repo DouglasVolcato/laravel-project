@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddCardRequest extends FormRequest
+class GetCardInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,13 @@ class AddCardRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'utility' => 'array',
             'cmc' => 'numeric',
             'colors' => 'array',
             'type' => 'string',
             'rarity' => 'string',
             'power' => 'numeric',
             'toughness' => 'numeric',
-            'imageUrl' => 'string',
-            'quantity' => 'numeric',
+            'imageUrl' => 'string'
         ];
     }
 }
