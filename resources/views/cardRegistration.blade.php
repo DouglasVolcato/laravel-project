@@ -32,13 +32,13 @@
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Power:</p>
-            <input required value="{{ isset($card) ? $card['power'] ?? '0' : '' }}" name='power'
+            <input required value="{{ isset($card) ? $card['power'] ?? '' : '' }}" name='power'
                 class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
                 placeholder="power">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Toughness:</p>
-            <input required value="{{ isset($card) ? $card['toughness'] ?? '0' : '' }}" name='toughness'
+            <input required value="{{ isset($card) ? $card['toughness'] ?? '' : '' }}" name='toughness'
                 class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
                 placeholder="toughness">
         </div>
