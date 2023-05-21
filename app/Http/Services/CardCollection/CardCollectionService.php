@@ -40,7 +40,7 @@ class CardCollectionService extends BaseController
         $splitRegisters = explode($this->registerSeparator, trim($content));
 
         $splitRegistersVerified = array_filter($splitRegisters, function ($item) {
-            return trim($item) !== "";
+            return (trim($item) !== "" && preg_match("/[a-z]/i", $item));
         });
 
         $splitCards = array_map(function ($item) {
@@ -97,7 +97,9 @@ class CardCollectionService extends BaseController
 
     private function stringArrayToString($content)
     {
-        return implode($this->arraySeparator, $content);
+        if(isset($content)){
+            return implode($this->arraySeparator, $content);
+        }
     }
 
     private function stringToArray($content)

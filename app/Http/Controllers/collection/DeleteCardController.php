@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\collection;
 
+use App\Http\Requests\DeleteCardRequest;
 use App\Http\Services\CardCollection\CardCollectionService;
 use Illuminate\Routing\Controller as BaseController;
 
@@ -14,15 +15,18 @@ class DeleteCardController extends BaseController
         $this->cardCollectionService = $cardCollectionService;
     }
 
-    public function deleteCard($request)
+    public function deleteCard(DeleteCardRequest $request)
     {
         $cardIndex = $request->index;
 
         $fileContent = $this->cardCollectionService->getContent();
-        array_splice($fileContent, $cardIndex);
+
+        if($fileContent){
+            array_splice($fileContent, $cardIndex);
+        }
 
         $this->cardCollectionService->setContent($fileContent);
 
-        return;
+        return redirect()->route('cardCollection');
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\collection;
 
-use App\Http\Requests\CardListSearchParametersRequest;
+use App\Http\Requests\AddCardRequest;
+use App\Http\Requests\GetCardInfoRequest;
 use App\Http\Services\CardCollection\CardCollectionService;
 use Illuminate\Routing\Controller as BaseController;
 
@@ -15,7 +16,7 @@ class AddCardController extends BaseController
         $this->cardCollectionService = $cardCollectionService;
     }
 
-    public function addCard(CardListSearchParametersRequest $request)
+    public function addCard(AddCardRequest $request)
     {
         $cardContent = $this->cardCollectionService->cardObjectToString($request);
         $fileContent = $this->cardCollectionService->getContent();
@@ -27,7 +28,7 @@ class AddCardController extends BaseController
         return view('cardRegistration');
     }
 
-    public function showCardRegistrationView(){
-        return view('cardRegistration');
+    public function showCardRegistrationView(GetCardInfoRequest $request){
+        return view('cardRegistration', ['card' => $request]);
     }
 }

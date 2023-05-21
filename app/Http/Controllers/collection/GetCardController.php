@@ -25,4 +25,10 @@ class GetCardController extends BaseController {
     {
         return $this->cardCollectionService->getContent();
     }
+
+    public function showCardCollectionListView(){
+        $cards = $this->getAllCards();
+
+        return view('cardCollectionList', ['cards' => $cards]);
+    }
 }
