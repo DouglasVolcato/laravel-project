@@ -19,8 +19,8 @@
     @endphp
 
     <form class="flex flex-wrap justify-center bg-black-300 w-full mt-3 mb-3" action="{{ route('cardList') }}" method="GET">
-        <input name='name' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded" type="text"
-            placeholder="name">
+        <input value="{{ request()['name'] ?? '' }}" name='name'
+            class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded" type="text" placeholder="name">
         <button
             class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-200 text-gray-800 rounded hover:bg-green-400 hover:scale-105"
             type="submit">Search</button>
@@ -34,27 +34,38 @@
                     <h1 class="text-gray-600 font-bold text-center">{{ $card->name }}</h1>
                     <p class="text-gray-600 text-center">{{ $card->type }}</p>
                     <div class="w-full flex justify-center">
-                        @php
-                            $queryParameters = "name={$card->name}&cmc={$card->cmc}&type={$card->type}&rarity={$card->rarity}";
-                            
-                            if (property_exists($card, 'power') && isset($card->power)) {
-                                $queryParameters .= "&power={$card->power}";
-                            }
-                            
-                            if (property_exists($card, 'toughness') && isset($card->toughness)) {
-                                $queryParameters .= "&toughness={$card->toughness}";
-                            }
-                            
-                            if (property_exists($card, 'colors') && isset($card->colors)) {
-                                foreach ($card->colors as $color) {
-                                    $queryParameters .= "&colors[]=$color";
+                        <form class='mt-3 ml-auto mr-auto' action="{{ route('cardRegistrationViewParameters') }}"
+                            method="POST">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                            <input type="hidden" name="name" value='{{ $card->name }}'>
+                            <input type="hidden" name="cmc" value='{{ $card->cmc }}'>
+                            <input type="hidden" name="type" value='{{ $card->type }}'>
+                            <input type="hidden" name="rarity" value='{{ $card->rarity }}'>
+
+                            @php
+                                if (property_exists($card, 'power') && isset($card->power)) {
+                                    echo "<input type='hidden' name='power' value='{$card->power}'>";
                                 }
-                            }
-                        @endphp
-                        <a href="{{ route('cardRegistrationView', "$queryParameters") }}"
-                            class="px-2 pr-3 pl-3 py-2 mt-3 ml-auto mr-auto font-bold bg-green-400 text-gray-800 rounded hover:bg-green-500">
-                            Add to collection
-                        </a>
+                                
+                                if (property_exists($card, 'toughness') && isset($card->toughness)) {
+                                    echo "<input type='hidden' name='toughness' value='{$card->toughness}'>";
+                                }
+                                
+                                if (property_exists($card, 'colors') && isset($card->colors)) {
+                                    foreach ($card->colors as $color) {
+                                        echo "<input type='hidden' name='colors[]' value='{$color}'>";
+                                    }
+                                }
+                                
+                                if (property_exists($card, 'imageUrl') && isset($card->imageUrl)) {
+                                    echo "<input type='hidden' name='imageUrl' value='{$card->imageUrl}'>";
+                                }
+                            @endphp
+
+                            <button type='submit'
+                                class="px-2 pr-3 pl-3 py-2 font-bold bg-green-400 text-gray-800 rounded hover:bg-green-500">
+                                Add to collection </button>
+                        </form>
                     </div>
                 </div>
             @endif
