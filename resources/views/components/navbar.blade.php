@@ -1,14 +1,14 @@
 <nav class="flex flex-wrap justify-center mb-3">
     @component('components.button', [
         'type' => 'button',
-        'onclick' => '',
+        'route' => 'cardRegistrationView',
         'color' => 'blue',
-        'label' => 'Find Cards',
+        'label' => 'Register card',
     ])
     @endcomponent
     @component('components.button', [
         'type' => 'button',
-        'onclick' => '',
+        'route' => 'cardCollection',
         'color' => 'green',
         'label' => 'My collection',
     ])
