@@ -47,7 +47,7 @@ class CardCollectionService extends BaseController
             $registerProperties = explode($this->propertySeparator, $item);
 
             $data = new stdClass();
-            $data->utility = $this->stringToArray($registerProperties[0]);
+            $data->utilities = $this->stringToArray($registerProperties[0]);
             $data->name = $registerProperties[1];
             $data->cmc = $registerProperties[2];
             $data->colors = $this->stringToArray($registerProperties[3]);
@@ -66,7 +66,7 @@ class CardCollectionService extends BaseController
 
     public function cardObjectToString($content)
     {
-        $utility = $this->stringArrayToString($content->utility);
+        $utilities = $this->stringArrayToString($content->utilities);
         $name = $content->name;
         $cmc = $content->cmc;
         $colors = $this->stringArrayToString($content->colors);
@@ -77,7 +77,7 @@ class CardCollectionService extends BaseController
         $imageUrl = $content->imageUrl;
         $quantity = $content->quantity;
 
-        $cardContent = $utility . $this->propertySeparator . $name . $this->propertySeparator . $cmc . $this->propertySeparator . $colors . $this->propertySeparator . $type . $this->propertySeparator . $rarity . $this->propertySeparator . $power . $this->propertySeparator . $toughness . $this->propertySeparator . $imageUrl . $this->propertySeparator . $quantity;
+        $cardContent = $utilities . $this->propertySeparator . $name . $this->propertySeparator . $cmc . $this->propertySeparator . $colors . $this->propertySeparator . $type . $this->propertySeparator . $rarity . $this->propertySeparator . $power . $this->propertySeparator . $toughness . $this->propertySeparator . $imageUrl . $this->propertySeparator . $quantity;
 
         return $cardContent;
     }
@@ -89,6 +89,10 @@ class CardCollectionService extends BaseController
         }
 
         $stringDataArray = array_map(function($item){
+            if(is_string($item)){
+                return $item;
+            }
+
             return $this->cardObjectToString($item);
         }, $content);
 
