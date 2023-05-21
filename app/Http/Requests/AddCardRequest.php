@@ -23,7 +23,7 @@ class AddCardRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'utility' => 'array',
+            'utilities' => 'array',
             'cmc' => 'numeric',
             'colors' => 'array',
             'type' => 'string',
