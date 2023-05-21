@@ -22,10 +22,12 @@ class DeleteCardController extends BaseController
         $fileContent = $this->cardCollectionService->getContent();
 
         if($fileContent){
-            array_splice($fileContent, $cardIndex);
+            array_splice($fileContent, $cardIndex, 1);
         }
 
-        $this->cardCollectionService->setContent($fileContent);
+        $newFileContent = $this->cardCollectionService->cardObjectArrayToString($fileContent);
+
+        $this->cardCollectionService->setContent($newFileContent);
 
         return redirect()->route('cardCollection');
     }
