@@ -20,6 +20,10 @@ class CardSearchService extends MtgApiConnectionHelper
     {
         $searchParameters = $this->mountSearchParameters($request);
 
+        if(!isset($searchParameters)){
+            return [];
+        }
+
         return $this->getFromApi($searchParameters);
     }
 
@@ -42,6 +46,10 @@ class CardSearchService extends MtgApiConnectionHelper
 
         $parameters = "?";
 
+        if (!isset($name)) {
+            return null;
+        }
+
         if (isset($page)) {
             $parameters .= "page={$page}";
         } else {
@@ -53,9 +61,9 @@ class CardSearchService extends MtgApiConnectionHelper
         }
 
         if (strlen($parameters) > 7) {
-            $parameters .= "&pageSize=300";
-        } else {
             $parameters .= "&pageSize=30";
+        } else {
+            $parameters .= "&pageSize=10";
         }
 
         return $parameters;
