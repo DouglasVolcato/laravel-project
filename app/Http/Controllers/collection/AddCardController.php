@@ -25,7 +25,7 @@ class AddCardController extends BaseController
 
         $this->cardCollectionService->setContent($newFileContent);
 
-        return view('cardRegistration');
+        return redirect()->route('cardCollection');
     }
 
     public function showCardRegistrationView(GetCardInfoRequest $request){
