@@ -4,7 +4,7 @@
 
 @section('content')
     <form class="flex flex-wrap justify-center bg-black-300 w-2/4 m-auto p-5 rounded bg-green-600 mt-3 mb-3"
-        action="{{ route('cardRegistration') }}" method="GET">
+        action="{{ route('cardRegistration') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Name:</p>

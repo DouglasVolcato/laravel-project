@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [CardSearchController::class, 'showCardListView'])->name('cardList');
 
 Route::get('/register-card-form', [AddCardController::class, 'showCardRegistrationView'])->name('cardRegistrationView');
-Route::get('/register-card', [AddCardController::class, 'addCard'])->name('cardRegistration');
+Route::post('/register-card', [AddCardController::class, 'addCard'])->name('cardRegistration');
 
 Route::get('/card-collection', [GetCardController::class, 'showCardCollectionListView'])->name('cardCollection');
 
