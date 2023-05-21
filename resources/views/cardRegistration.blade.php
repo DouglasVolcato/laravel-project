@@ -8,43 +8,43 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Name:</p>
-            <input name='name' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
+            <input required value="{{ isset($card) ? $card['name'] ?? '' : '' }}" name='name'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
                 placeholder="name">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Type:</p>
-            <input name='type' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
+            <input required value="{{ isset($card) ? $card['type'] ?? '' : '' }}" name='type'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
                 placeholder="type">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Mana cost:</p>
-            <input name='cmc' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
+            <input required value="{{ isset($card) ? $card['cmc'] ?? '' : '' }}" name='cmc'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
                 placeholder="mana cost">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Rarity:</p>
-            <input name='rarity' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
+            <input required value="{{ isset($card) ? $card['rarity'] ?? '' : '' }}" name='rarity'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="text"
                 placeholder="rarity">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Power:</p>
-            <input name='power' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
+            <input required value="{{ isset($card) ? $card['power'] ?? '0' : '' }}" name='power'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
                 placeholder="power">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Toughness:</p>
-            <input name='toughness' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded"
-                type="number" placeholder="toughness">
+            <input required value="{{ isset($card) ? $card['toughness'] ?? '0' : '' }}" name='toughness'
+                class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded" type="number"
+                placeholder="toughness">
         </div>
-        <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
-            <p class="mr-2 font-bold text-gray-500 text-center">Image url:</p>
-            <input name='imageUrl' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded"
-                type="text" placeholder="image url">
-        </div>
-
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
             <p class="mr-2 font-bold text-gray-500 text-center">Owned quantity:</p>
-            <input name='quantity' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded"
+            <input required name='quantity' class="px-2 pr-3 pl-3 py-2 m-1 font-bold bg-gray-300 text-gray-800 rounded"
                 type="number" placeholder="owned quantity">
         </div>
         <div class="w-50 m-2 bg-gray-200 p-2 mt-1 mb-1 rounded flex flex-col">
@@ -113,7 +113,6 @@
                     </td>
                 </tr>
                 <tr>
-
                     <td>
                         <label for="utility-recursion" class="mr-1 text-gray-500 p-1">
                             <input id="utility-recursion" name="utility[]" type="checkbox" value="recursion"
@@ -149,7 +148,8 @@
                 <tr>
                     <td>
                         <label for="color-white" class="mr-1  text-gray-500 p-1">
-                            <input id="color-white" name="colors[]" type="checkbox" value="white" class="mr-1">
+                            <input @php echo  'checked'; @endphp id="color-white" name="colors[]" type="checkbox"
+                                value="white" class="mr-1">
                             White
                         </label>
                     </td>

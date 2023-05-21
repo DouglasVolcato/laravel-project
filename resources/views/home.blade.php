@@ -1,6 +1,6 @@
 @extends('components.main')
 
-@section('title', 'Card list')
+@section('title', 'Card search')
 
 @section('content')
     @php
@@ -33,6 +33,29 @@
                     <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}" class="w-150 h-200 object-cover mb-4">
                     <h1 class="text-gray-600 font-bold text-center">{{ $card->name }}</h1>
                     <p class="text-gray-600 text-center">{{ $card->type }}</p>
+                    <div class="w-full flex justify-center">
+                        @php
+                            $queryParameters = "name={$card->name}&cmc={$card->cmc}&type={$card->type}&rarity={$card->rarity}";
+                            
+                            if (property_exists($card, 'power') && isset($card->power)) {
+                                $queryParameters .= "&power={$card->power}";
+                            }
+                            
+                            if (property_exists($card, 'toughness') && isset($card->toughness)) {
+                                $queryParameters .= "&toughness={$card->toughness}";
+                            }
+                            
+                            if (property_exists($card, 'colors') && isset($card->colors)) {
+                                foreach ($card->colors as $color) {
+                                    $queryParameters .= "&colors[]=$color";
+                                }
+                            }
+                        @endphp
+                        <a href="{{ route('cardRegistrationView', "$queryParameters") }}"
+                            class="px-2 pr-3 pl-3 py-2 mt-3 ml-auto mr-auto font-bold bg-green-400 text-gray-800 rounded hover:bg-green-500">
+                            Add to collection
+                        </a>
+                    </div>
                 </div>
             @endif
         @endforeach
